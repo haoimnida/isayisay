@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Georgia', serif;
+    background:fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .container {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    overflow: hidden;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1;
+  }
+
+  .lyrics {
+    font-size: 1.3rem;
+    line-height: 2.2rem;
+    color: rgba(50,30,20,0.9);
+    text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+    white-space: pre-line;
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  .scrolling {
+    animation: scrollUp 520s linear forwards;
+    opacity: 1;
+  }
+
+  @keyframes scrollUp {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-250%); }
+  }
+
+  .btn {
+    position: absolute;
+    top: 10%;
+    width: 60px; height: 60px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+    pointer-events: auto;
+  }
+
+  .play-btn:before {
+    content: "";
+    display: block;
+    margin-left: 3px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid #fff;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+  }
+
+  .pause-btn:before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 20px;
+    background: #fff;
+    box-shadow: 15px 0 0 #fff;
+  }
+
+  .play-btn { left: 45%; top: 45%; }
+  .pause-btn { left: 90%; top: 10%; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="lyrics" id="lyrics">
+Despite everything, kahit sa lahat ng struggles na pinagdadaanan natin, gusto kong malaman mo na andito ako lagi para maging sandalan mo.
+
+Alam kong ang bigat ng workload mo ngayon sa school at pati na rin sa work, kaya ayokong dagdagan pa yung stress mo.
+
+Ang gusto ko lang, maramdaman mo na kahit gaano kahirap, may isang taong buo ang suporta at pagmamahal para sayo.
+
+Mahalaga sa’kin na naiintindihan mo na hindi kita pinipressure o pinapabigat, kasi alam kong ang dami mong kailangang balansihin.
+
+Nandito lang ako, handang makinig at umalalay kahit hindi mo laging sinasabi kung anong nararamdaman mo.
+
+Kahit simpleng katahimikan, basta kasama kita, sapat na yun para sa akin.
+
+Gusto kong maramdaman mo na mahal na mahal pa rin kita, hindi lang ng tama lang kundi nang buo at husto.
+
+Kahit may mga araw na hindi maganda o nag-aaway tayo, pipiliin at mamahalin pa rin kita.
+
+Gagawin ko lahat ng makakaya ko para maipakita sayo kung gaano ka kahalaga sa akin.
+
+Hindi kita iiwan, at lagi akong andito para suportahan ka sa lahat ng bagay.
+
+Kapag pagod ka na, andito pa rin ako para maging pahinga mo—yung magiging pampawi ng pagod at lungkot mo.
+
+Alam kong hindi madali lahat ng hinaharap mo, pero gusto kong isipin mo na hindi ka nag-iisa.
+
+Kahit anong dumating, haharapin natin nang magkasama.
+
+Hindi ko man masolusyonan lahat ng problema mo, pero kaya kitang damayan, pasayahin, at iparamdam na may isang taong hindi bibitaw sayo.
+
+Yun ang pangako ko sa’yo, at pangakong hindi ko sisirain.
+
+At kahit sa mga susunod na araw, kapag may bagong stress, bagong challenges, o mga hindi inaasahang pangyayari, mananatili akong narito.
+
+Patuloy akong magiging sandalan mo, magiging katahimikan mo, at pipiliin pa rin kitang mahalin sa lahat ng pagkakataon.
+
+Kahit anong mangyari, gusto kong malaman mo na may isang tao na hindi bibitaw sayo, na handang makinig, umalalay, at iparamdam sa’yo na mahalaga ka, higit pa sa lahat ng bagay.
+  </div>
+</div>
+
+<button class="btn play-btn" onclick="start()"></button>
+<button class="btn pause-btn" onclick="pauseLyrics()"></button>
+
+<audio id="bg-music" src="music.mp3" preload="auto"></audio>
+
+<script>
+  const lyrics = document.getElementById("lyrics");
+  const music = document.getElementById("bg-music");
+
+  function start() {
+    document.querySelector(".play-btn").style.display = "none";
+    lyrics.classList.add('scrolling');
+    music.play().catch(err => console.log('Audio failed to play:', err));
+  }
+
+  function pauseLyrics() {
+    if(lyrics.style.animationPlayState === 'paused') {
+      lyrics.style.animationPlayState = 'running';
+    } else {
+      lyrics.style.animationPlayState = 'paused';
+    }
+  }
+</script>
+
+</body>
+</html>
